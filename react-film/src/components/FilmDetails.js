@@ -10,7 +10,7 @@ const FilmDetails = props => {
   */
 
   const RenderCurrentFilmInfo = () => {
-    const { title, poster_path, backdrop_path } = props.current;
+    const { title, poster_path, backdrop_path, overview } = props.current;
 
     return (
       <div className="film-detail is-hydrated">
@@ -31,7 +31,7 @@ const FilmDetails = props => {
               className={"film-detail-poster"}
               posterUrlPrefix={'https://image.tmdb.org/t/p/w780'}
             />
-            In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise.
+            {overview}
           </p>
         </div>
       </div>
