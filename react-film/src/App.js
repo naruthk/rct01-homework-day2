@@ -1,20 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TMDB from './TMDB';
 import FilmListing from './components/FilmListing';
 import FilmDetails from './components/FilmDetails';
 import './App.css';
 
-const { films } = TMDB;
+const filmsData = TMDB.films;
 
-class App extends Component {
-  render() {
-    return (
-      <div className="film-library">
-        <FilmListing films={films} />
-        <FilmDetails films={films} />
-      </div>
-    );
+const App = () => {
+  const [current, setCurrent] = useState(undefined);
+  const [faves, setFaves] = useState([]);
+  const [films] = useState(filmsData);
+
+  const onDetailsClick = film => {
+    if (current === film) return setCurrent(undefined);
+    setCurrent(film);
   }
-}
+
+  const onFaveToggle = (film, isFave) => {
+    if (isFave) return setFaves([...faves, film]);
+    const faveListWithoutCurrentFilm = [...faves].filter( existingFilm => existingFilm.id !== film.id);
+    setFaves(faveListWithoutCurrentFilm);
+  };
+
+  return (
+    <div className="film-library">
+      <FilmListing
+        films={films}
+        faves={faves}
+        onFaveToggle={onFaveToggle}
+        onDetailsClick={onDetailsClick}
+      />
+      <FilmDetails current={current} />
+    </div>
+  );
+};
 
 export default App;
