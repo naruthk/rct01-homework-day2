@@ -19,15 +19,15 @@ const FilmListing = props => {
     />
   );
 
-  const allFilms = props.films.map(film => renderFilmRow(film));
+  const allFilms = props.films.map(renderFilmRow);
   
-  const faveFilms = props.faves.map(film => renderFilmRow(film));
+  const faveFilms = props.faves.map(renderFilmRow);
 
   const handleFilterClick = filter => setFilter(filter);
 
   const renderListFilters = [FILTER_TYPE.all, FILTER_TYPE.faves].map(item => (
     <div
-      className={`film-list-filter ${filter === item ? 'is-active' : ''}`}
+      className={`film-list-filter ${filter === item && 'is-active'}`}
       onClick={() => handleFilterClick(item)}
       key={item}
     >

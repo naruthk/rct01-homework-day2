@@ -2,14 +2,21 @@ import React from 'react';
 import FilmPoster from "./FilmPoster";
 
 const FilmDetails = props => {
-  
-  /*
-    TO-DO:
-    1. Fix problem in which current FilmDetail is re-rendered when fav/unfav
-    2. Connect to API rather than using mock data
-  */
 
   const RenderCurrentFilmInfo = () => {
+    const { current } = props;
+    const isEmpty = Object.keys(current).length === 0;
+    if (isEmpty) {
+      return (
+        <div className="film-detail">
+          <p>
+            <i className="material-icons">subscriptions</i>
+            <span>No film selected</span>
+          </p>
+        </div>
+      );
+    }
+
     const { title, poster_path, backdrop_path, overview } = props.current;
 
     return (
@@ -20,10 +27,10 @@ const FilmDetails = props => {
             posterPath={backdrop_path}
             posterUrlPrefix={"https://image.tmdb.org/t/p/w1280/"}
           />
-          <h1 className="film-title">It</h1>
+          <h1 className="film-title">{title}</h1>
         </figure>
         <div className="film-meta">
-          <h2 className="film-tagline">Your fears are unleashed</h2>
+          {/* <h2 className="film-tagline">Your fears are unleashed</h2> */}
           <p className="film-detail-overview">
             <FilmPoster
               title={title}
@@ -41,11 +48,7 @@ const FilmDetails = props => {
   return (
     <div className="film-details">
       <h1 className="section-title">DETAILS</h1>
-      <div className="film-detail">
-        {!props.current ? (
-          <p><i className="material-icons">subscriptions</i><span>No film selected</span></p>
-         ) : <RenderCurrentFilmInfo />}
-      </div>
+        <RenderCurrentFilmInfo />
     </div>
   )
 };

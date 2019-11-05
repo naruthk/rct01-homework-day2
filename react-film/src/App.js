@@ -7,12 +7,12 @@ import './App.css';
 const filmsData = TMDB.films;
 
 const App = () => {
-  const [current, setCurrent] = useState(null);
+  const [current, setCurrent] = useState({});
   const [faves, setFaves] = useState([]);
   const [films] = useState(filmsData);
 
   const onDetailsClick = film => {
-    if (current === film) return setCurrent(null);
+    if (current === film) return setCurrent({});
     setCurrent(film);
   }
 
